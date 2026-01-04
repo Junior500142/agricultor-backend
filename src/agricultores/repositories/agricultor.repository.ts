@@ -13,7 +13,7 @@ export class AgricultorRepository {
   ) {}
 
   async create(createDto: CreateAgricultorDto): Promise<Agricultor> {
-    // Usar Query Builder direto para evitar problema de mapeamento
+    // usar Query Builder direto para não dar problema de mapeamento
     const id = this.generateUUID();
     
     await this.repository
@@ -39,7 +39,7 @@ export class AgricultorRepository {
   }
 
   async findAll(): Promise<Agricultor[]> {
-    // Usar query raw para evitar problema de alias
+    // usar query raw para não dar problema de alias
     return await this.repository.query(`
       SELECT 
         id,
@@ -96,7 +96,7 @@ export class AgricultorRepository {
   }
 
   async update(id: string, updateDto: UpdateAgricultorDto): Promise<Agricultor> {
-    // Construir query dinamicamente apenas com campos presentes
+    // construir query dinamicamente apenas com campos presentes
     const updates: string[] = [];
     const values: any[] = [];
 
@@ -126,7 +126,7 @@ export class AgricultorRepository {
     }
 
     if (updates.length > 0) {
-      values.push(id); // ID para o WHERE
+      values.push(id); // Para o where
       
       await this.repository.query(`
         UPDATE agricultores 

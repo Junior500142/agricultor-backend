@@ -52,7 +52,7 @@ export class AgricultoresService {
   }
 
   async update(id: string, updateDto: UpdateAgricultorDto): Promise<Agricultor> {
-    // Verificar se existe
+    // Verifica se existe
     await this.findOne(id);
 
     // Se está atualizando CPF/CNPJ, validar
@@ -63,7 +63,7 @@ export class AgricultoresService {
         throw new BadRequestException('CPF/CNPJ inválido');
       }
 
-      // Verificar se já existe outro com mesmo CPF/CNPJ
+      // Verifica se existe outro com mesmo CPF/CNPJ
       const exists = await this.agricultorRepository.findByCnpjCpf(cnpjCpfLimpo);
       if (exists && exists.id !== id) {
         throw new ConflictException('CPF/CNPJ já cadastrado');
@@ -76,7 +76,7 @@ export class AgricultoresService {
   }
 
   async remove(id: string): Promise<void> {
-    // Verificar se existe
+    // verifica se existe
     await this.findOne(id);
     
     await this.agricultorRepository.remove(id);
