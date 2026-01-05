@@ -10,7 +10,14 @@ export const databaseConfig: TypeOrmModuleOptions = {
   entities: ['dist/**/*.entity{.ts,.js}', 'src/**/*.entity{.ts,.js}'],
   synchronize: true,
   logging: true,
-  ssl: {
-    rejectUnauthorized: false
-  }
+
+  ssl: process.env.DB_PORT === '3306' ? false : { rejectUnauthorized: false },
+
+  extra: {
+    connectionLimit: 10,
+    waitForConnections: true,
+    queueLimit: 0,
+    keepAliveInitialDelay: 10000,
+    enableKeepAlive: true,
+  },
 };
